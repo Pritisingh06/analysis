@@ -1,0 +1,48 @@
+rm(list=ls())
+library(Hmisc)
+data <- read.csv("C:/Users/priti/Downloads/covid19/covid19/COVID19.csv")
+
+# Clean up death column
+data$death_dummy <- as.integer(data$death != 0)
+
+# Calculate death rates
+death_rate <- sum(data$death_dummy) / nrow(data)
+cat("Overall death rate:", death_rate, "\n")
+
+# Subset data for deceased and alive individuals
+dead <- subset(data, death_dummy == 1)
+alive <- subset(data, death_dummy == 0)
+
+# Age analysis
+mean_dead_age <- mean(dead$age, na.rm = TRUE)
+mean_alive_age <- mean(alive$age, na.rm = TRUE)
+cat("Mean age of deceased:", mean_dead_age, "\n")
+cat("Mean age of alive individuals:", mean_alive_age, "\n")
+
+# Perform t-test for age
+t_test_age <- t.test(alive$age, dead$age, alternative = "two.sided", conf.level = 0.99)
+cat("T-test for age:", "\n")
+print(t_test_age)
+
+# Gender analysis
+men <- subset(data, gender == "male")
+women <- subset(data, gender == "female")
+
+death_rate_men <- mean(men$death_dummy, na.rm = TRUE) * 100
+death_rate_women <- mean(women$death_dummy, na.rm = TRUE) * 100
+
+cat("Death rate for men:", death_rate_men, "%\n")
+cat("Death rate for women:", death_rate_women, "%\n")
+
+# Perform t-test for gender
+t_test_gender <- t.test(men$death_dummy, women$death_dummy, alternative = "two.sided", conf.level = 0.99)
+cat("T-test for gender:", "\n")
+print(t_test_gender)
+
+# Create barplot to visualize death rates by gender
+barplot_heights <- c(death_rate_men, death_rate_women)
+barplot_names <- c("Men", "Women")
+barplot_colors <- c("skyblue", "lightgreen")
+
+barplot(barplot_heights, names.arg = barplot_names, col = barplot_colors,
+        main = "Death Rates by Gender", ylab = "Death Rate (%)")
