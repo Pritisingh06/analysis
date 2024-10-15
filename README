@@ -1,0 +1,46 @@
+# COVID-19 Data Analysis  
+
+This project conducts an analysis of COVID-19 data to investigate patterns related to death rates, age, and gender differences among patients. Using R programming and data manipulation libraries, my aim to derive insights from the dataset and visualize the results effectively.  
+
+## Project Structure  
+
+- `COVID19.csv`: The raw dataset used for analysis.  
+- `COVID19_analysis.R`: The main R script containing the analysis code.  
+- `README.md`: This documentation file.  
+
+## Data Description  
+
+The dataset contains information related to COVID-19 cases, including demographics such as age, gender, and death status. It is assumed that the dataset has the following key columns:  
+
+- `age`: Age of the individual.  
+- `gender`: Gender of the individual (e.g., "male", "female").  
+- `death`: Indicates whether the individual died from COVID-19 (non-zero indicates death).  
+
+## Analysis Overview  
+
+### 1. Death Rate Calculation  
+
+The overall death rate is calculated based on the dataset to determine the percentage of individuals who have died from COVID-19.  
+
+### 2. Age Analysis  
+
+We analyze the mean age of deceased versus alive individuals to understand how age might influence mortality.  
+
+### 3. Gender Analysis  
+
+- The death rates for male and female individuals are calculated and compared.  
+- A t-test is performed to statistically compare the death status between genders.  
+
+### 4. Visualization  
+
+A bar plot is created to visualize and compare the death rates by gender, providing a clear graphical representation of the findings.  
+
+## Required Libraries  
+
+The following R libraries are required to run the analysis:  
+
+- `Hmisc`: For data manipulation and statistical analysis.  
+  
+To install any missing libraries, run:  
+```R  
+install.packages("Hmisc")
